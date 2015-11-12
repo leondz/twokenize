@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """ tokenizer for tweets!  might be appropriate for other social media dialects too.
 general philosophy is to throw as little out as possible.

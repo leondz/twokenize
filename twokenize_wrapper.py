@@ -3,8 +3,8 @@
 ###############################################################################
 # Tokinizes strings using the 'twokenize' module, but also splits up
 # contractions, which 'twokenize' fails to do.
-#
 ###############################################################################
+
 import sys
 import twokenize
 
