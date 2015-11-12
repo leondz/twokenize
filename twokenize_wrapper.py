@@ -47,4 +47,4 @@ def split_contractions(tokens):
 
 if __name__=='__main__':
   for line in sys.stdin:
-    print(tokenize(line[:-1]))
+    print(" ".join(tokenize(line[:-1])))
