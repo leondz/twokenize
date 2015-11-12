@@ -8,19 +8,23 @@ and only accept the ones that seeem to result in good diffs, it's a sort of
 statistical learning with in-the-loop human evaluation :)
 """
 
-__author__="brendan o'connor (anyall.org), alan ritter, leon derczynski#"
+__author__="brendan o'connor (anyall.org), alan ritter, leon derczynski"
 
 import re,sys
 import emoticons
 mycompile = lambda pat:  re.compile(pat,  re.UNICODE)
+
 def regex_or(*items):
   r = '|'.join(items)
   r = '(' + r + ')'
   return r
+
 def pos_lookahead(r):
   return '(?=' + r + ')'
+
 def neg_lookahead(r):
   return '(?!' + r + ')'
+
 def optional(r):
   return '(%s)?' % r
 
@@ -29,10 +33,7 @@ PunctChars = r'''['“".?!,:;]'''
 Punct = '%s+' % PunctChars
 Entity = '&(amp|lt|gt|quot);'
 
-# one-liner URL recognition:
-#Url = r'''https?://\S+'''
-
-# more complex version:
+# URL recognition:
 UrlStart1 = regex_or('https?://', r'www\.')
 CommonTLDs = regex_or('com','co\\.uk','org','net','info','ca')
 UrlStart2 = r'[a-z0-9\.-]+?' + r'\.' + CommonTLDs + pos_lookahead(r'[/ \W\b]')
@@ -45,6 +46,8 @@ Url = (r'\b' +
     pos_lookahead( optional(UrlExtraCrapBeforeEnd) + UrlEnd))
 
 Url_RE = re.compile("(%s)" % Url, re.U|re.I)
+
+Email = r'\b[a-z0-9\.\-\_]+@[a-z0-9\.\-\_]+\.[a-z0-9\.\-\_]+[a-z]\b'
 
 Timelike = r'\d+:\d+'
 NumNum = r'\d+\.\d+'
@@ -72,6 +75,7 @@ EmbeddedApostrophe = r"\S+'\S+"
 ProtectThese = [
     emoticons.Emoticon,
     Url,
+    Email,
     Entity,
     Timelike,
     NumNum,
